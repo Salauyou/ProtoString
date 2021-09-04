@@ -10,7 +10,7 @@ keyValue
   ;
 
 scalar
-  : STRING     #string
+  : QSTRING    #string
   | NUMBER     #number
   | ID         #enum
   | 'true'     #true
@@ -21,16 +21,8 @@ ID
   : [a-zA-Z][a-zA-Z0-9_]*
   ;
 
-STRING
-  : '"' (ESC | CHAR)* '"'
-  ;
-
-fragment ESC
-  : '\\' ["\\/bnrt]
-  ;
-
-fragment CHAR
-  : ~["\\]
+QSTRING
+  : '"' (~[\\"] | '\\'.)* '"'
   ;
 
 NUMBER

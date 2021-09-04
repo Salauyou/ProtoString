@@ -26,7 +26,7 @@ open class ProtoParserVisitor : ProtoBaseVisitor<Unit>() {
     }
 
     override fun visitString(ctx: ProtoParser.StringContext) {
-        currentMap[currentKey] = ctx.STRING().text.unquote()
+        currentMap[currentKey] = ctx.QSTRING().text.unquote()
     }
 
     override fun visitEnum(ctx: ProtoParser.EnumContext) {
@@ -51,8 +51,9 @@ open class ProtoParserVisitor : ProtoBaseVisitor<Unit>() {
 
         private const val ESC = '\\'.code
         private val SKIPPED_CHARS = '\u0000'.code until '\u001f'.code
-        private val ESCAPED_CHARS = mapOf('\\' to "\\", '"' to "\"", 'r' to "\r", 'n' to "\n", 't' to "\t")
-            .map { it.key.code to it.value }
+        private val ESCAPED_CHARS = mapOf(
+            '\\'.code to "\\", '"'.code to "\"",
+            'r'.code to "\r", 'n'.code to "\n", 't'.code to "\t")
 
         fun String.unquote(): String {
             return if (chars().noneMatch { c -> c == ESC || c in SKIPPED_CHARS }) {

@@ -1,7 +1,7 @@
 package ru.salauyou.protostring
 
 import org.junit.Test
-import ru.salauyou.protostring.parser.MyParser
+import ru.salauyou.protostring.parser.ObjectParser
 
 import java.math.BigDecimal
 import kotlin.test.assertEquals
@@ -16,15 +16,15 @@ class ParserTest {
     @Test
     fun `simple object`() {
         val string = """
-            { simple : "ABC" escaped : "escaped\n\rtext\\\\" quoted : "\"quoted\" text" 
+            { simple : "ABC" escaped : "e\scaped\n\rtext\\\\" quoted : "\"quoted\" text" 
             int : 5006 decimal : -34.560 
             truly : true falsy : false 
             enumy : SOME }
             """
-        val result = MyParser.parse(string)
+        val result = ObjectParser.parse(string)
         mapOf(
             "simple" to "ABC",
-            "escaped" to "escaped\n\rtext\\\\",
+            "escaped" to "e\\scaped\n\rtext\\\\",
             "quoted" to "\"quoted\" text",
             "int" to BigDecimal("5006"),
             "decimal" to BigDecimal("-34.560"),
