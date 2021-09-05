@@ -1,7 +1,7 @@
 grammar Proto;
 
 obj
-  : '{' keyValue* '}'
+  : '{' (keyValue)* '}'
   ;
 
 keyValue

@@ -59,6 +59,7 @@
           </execution>
           <execution>
             <id>test-compile</id>
+            <phase>process-sources</phase>
             <goals>
               <goal>test-compile</goal>
             </goals>
