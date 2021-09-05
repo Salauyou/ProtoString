@@ -25,9 +25,8 @@ class ObjectParser {
 
 private class Visitor : ProtoBaseVisitor<Unit>() {
 
-    private val root = "root"
     private var currentMap : MutableMap<String, Any> = LinkedHashMap()
-    private var currentKey : String = root
+    private var currentKey : String = ROOT
 
     override fun visitKeyValue(ctx: ProtoParser.KeyValueContext) {
         currentKey = ctx.ID().text
@@ -62,9 +61,12 @@ private class Visitor : ProtoBaseVisitor<Unit>() {
         currentMap[currentKey] = false
     }
 
-    fun getResult() = currentMap[root] as Map<String, Any>
+    fun getResult() = currentMap[ROOT] as Map<String, Any>
+
 
     companion object {
+
+        private const val ROOT = ""
 
         private const val ESC = '\\'.code
         private val SKIPPED_CHARS = '\u0000'.code .. '\u001f'.code
