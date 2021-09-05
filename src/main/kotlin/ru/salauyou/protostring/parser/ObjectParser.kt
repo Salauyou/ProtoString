@@ -67,7 +67,7 @@ private class Visitor : ProtoBaseVisitor<Unit>() {
     companion object {
 
         private const val ESC = '\\'.code
-        private val SKIPPED_CHARS = '\u0000'.code until '\u001f'.code
+        private val SKIPPED_CHARS = '\u0000'.code .. '\u001f'.code
         private val ESCAPED_CHARS = mapOf(
             '\\'.code to "\\", '"'.code to "\"",
             'r'.code to "\r", 'n'.code to "\n", 't'.code to "\t")
